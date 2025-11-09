@@ -112,6 +112,20 @@ contextBridge.exposeInMainWorld("electronAPI", {
         } catch {}
       }
     });
+
+    // Responder a eventos de Logout enviados desde el menú de la app
+    try {
+      ipcRenderer.on("trigger-logout", () => {
+        try {
+          window.localStorage.removeItem(ACCESS_KEY);
+          window.localStorage.removeItem(REFRESH_KEY);
+        } catch {}
+        try { ipcRenderer.send("delete-token"); } catch {}
+        try { ipcRenderer.send("delete-refresh-token"); } catch {}
+        // Forzar recarga limpia del renderer
+        try { location.reload(); } catch {}
+      });
+    } catch {}
   } catch (e) {}
 })();
 
