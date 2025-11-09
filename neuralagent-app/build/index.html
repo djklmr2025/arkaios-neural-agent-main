@@ -26,14 +26,10 @@
       }
       return originalFetch(url, options);
     };
-    // Ocultar visualmente el contenedor de Login si aparece
-    const mo = new MutationObserver(()=>{
-      try {
-        const title = Array.from(document.querySelectorAll('h1,h2,h3,span,p')).find(n=>/Login to NeuralAgent/i.test(n.textContent||''));
-        if (title){ const root = title.closest('div'); if (root) root.style.display = 'none'; }
-      } catch{}
-    });
-    try { mo.observe(document.documentElement,{childList:true,subtree:true}); } catch{}
+    // Forzar navegación al Home si la ruta inicial es login
+    document.addEventListener('DOMContentLoaded', function(){
+      try { if (location.hash && /login/i.test(location.hash)) { location.hash = '#/'; } } catch{}
+    }, true);
   } catch (e) {}
 })();
 </script>
