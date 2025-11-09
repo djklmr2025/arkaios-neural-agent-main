@@ -178,4 +178,89 @@ aside, .Sidebar, nav[aria-label*="sidebar" i]{
   new MutationObserver(function(){ try{apply();}catch(e){} }).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+<script>
+// ARKAIOS paywall kill-switch: bloquear pricing/plan/payment en UI y redirigir
+(function(){
+  function isPricingText(s){
+    return /(upgrade|plan|pricing|payment|billing|subscribe|continue to payment|\$\s*\d+\s*\/\s*month)/i.test(s||'');
+  }
+  function removeDialogs(){
+    try {
+      var nodes = document.querySelectorAll('[role="dialog"], .modal, .MuiDialog-root, .chakra-modal__content-container, .mantine-Modal-root');
+      for (var i=0;i<nodes.length;i++){
+        var el = nodes[i];
+        var txt = (el.textContent||'').trim();
+        if (isPricingText(txt)){
+          try { el.remove(); } catch(e){}
+          try { document.querySelectorAll('.MuiBackdrop-root,.modal-backdrop,.chakra-modal__overlay,.mantine-Overlay-root').forEach(function(b){ b.remove(); }); } catch(e){}
+        }
+      }
+      document.body && (document.body.style.overflow='auto');
+    } catch(e){}
+  }
+  function guardRouting(){
+    try {
+      var bad = /(pricing|upgrade|billing|subscribe|payment)/i;
+      if (bad.test(location.hash)) location.hash = '#/';
+      var push = history.pushState.bind(history);
+      history.pushState = function(state, title, url){
+        try {
+          var u = (typeof url==='string')?url:(url||'');
+          if (bad.test(u)) { url = '#/'; }
+        } catch(e){}
+        return push(state, title, url);
+      };
+      var replace = history.replaceState.bind(history);
+      history.replaceState = function(state, title, url){
+        try {
+          var u = (typeof url==='string')?url:(url||'');
+          if (bad.test(u)) { url = '#/'; }
+        } catch(e){}
+        return replace(state, title, url);
+      };
+      window.addEventListener('hashchange', function(){
+        try { if (bad.test(location.hash)) location.hash = '#/'; } catch(e){}
+      }, true);
+    } catch(e){}
+  }
+  function interceptClicks(){
+    try {
+      document.addEventListener('click', function(e){
+        try {
+          var t = e.target;
+          var txt = (t && (t.innerText||t.textContent||'')).trim();
+          if (isPricingText(txt)){
+            e.preventDefault(); e.stopPropagation();
+            removeDialogs();
+          }
+        } catch(e){}
+      }, true);
+    } catch(e){}
+  }
+  function interceptFetch(){
+    try {
+      var orig = window.fetch;
+      if (!orig) return;
+      window.fetch = async function(input, init){
+        var u = (typeof input==='string')?input:(input?.url||String(input||''));
+        if (/(pricing|payment|billing|subscribe|upgrade)/i.test(u)){
+          return new Response(JSON.stringify({ status:'ok', plan:'pro', upgradeRequired:false }),{ status:200, headers:{ 'Content-Type':'application/json' } });
+        }
+        try { var res = await orig(input, init); return res; } catch(_e){
+          return new Response(JSON.stringify({ status:'ok', plan:'pro', upgradeRequired:false }),{ status:200, headers:{ 'Content-Type':'application/json' } });
+        }
+      };
+    } catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    try {
+      guardRouting();
+      interceptClicks();
+      interceptFetch();
+      removeDialogs();
+      new MutationObserver(function(){ removeDialogs(); }).observe(document.documentElement,{ childList:true, subtree:true });
+    } catch(e){}
+  }, true);
+})();
+</script>
 </body></html>
