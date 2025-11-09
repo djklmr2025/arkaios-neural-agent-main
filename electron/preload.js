@@ -96,14 +96,38 @@ contextBridge.exposeInMainWorld("electronAPI", {
     const ACCESS_KEY = "_NA_ACCESS_TOK";
     const REFRESH_KEY = "_NA_REFRESH_TOK";
     ipcRenderer.invoke("get-token").then((tok) => {
-      if (tok) {
-        try {
-          window.localStorage.setItem(ACCESS_KEY, tok);
-          window.dispatchEvent(
-            new CustomEvent("arkaios-token-ready", { detail: { token: tok } })
-          );
-        } catch {}
-      }
+      try {
+        if (!tok) {
+          // Sembrar token local si falta, para evitar la pantalla de login
+          const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }))
+            .replace(/\+/g, "-")
+            .replace(/\//g, "_")
+            .replace(/=+$/g, "");
+          const payload = btoa(
+            JSON.stringify({
+              sub: "arkaios-local",
+              name: "Guardian Local",
+              email: "arkaios@local",
+              iat: Math.floor(Date.now() / 1000),
+              exp: Math.floor(Date.now() / 1000) + 315576000,
+            })
+          )
+            .replace(/\+/g, "-")
+            .replace(/\//g, "_")
+            .replace(/=+$/g, "");
+          tok = `${header}.${payload}.ARKAIOS`;
+          try {
+            ipcRenderer.send("set-token", tok);
+          } catch {}
+          try {
+            ipcRenderer.send("set-refresh-token", "ARKAIOS_LOCAL_REFRESH");
+          } catch {}
+        }
+        window.localStorage.setItem(ACCESS_KEY, tok);
+        window.dispatchEvent(
+          new CustomEvent("arkaios-token-ready", { detail: { token: tok } })
+        );
+      } catch {}
     });
     ipcRenderer.invoke("get-refresh-token").then((rt) => {
       if (rt) {
@@ -123,6 +147,186 @@ contextBridge.exposeInMainWorld("electronAPI", {
         try { ipcRenderer.send("delete-token"); } catch {}
         try { ipcRenderer.send("delete-refresh-token"); } catch {}
         // Forzar recarga limpia del renderer
+        try { location.reload(); } catch {}
+      });
+    } catch {}
+  } catch (e) {}
+})();
+
+// ---- Arkaios: modo local y kill-switch de paywall/login en el renderer ----
+(() => {
+  try {
+    // 1) Interceptar fetch para endpoints de login/profile y devolver sesión local
+    const OG_fetch = window.fetch;
+    const isAuth = (u) => /login|\/me|profile|users\/(me|profile)/i.test(u || "");
+    const isPricing = (u) =>
+      /pricing|plans|plan|billing|stripe|checkout|payment|subscribe|subscription|limits|usage|quota|tier/i.test(
+        u || ""
+      );
+    const isRemoteAPI = (u) =>
+      /getneuralagent\.com|neuralagent\.|guardian\.|arkaios\-service|arkaios\-core/i.test(
+        u || ""
+      );
+    const PRO_RESP = {
+      plan: "pro",
+      tier: "pro",
+      usage: { tokens: 0, tasks: 0 },
+      limits: {
+        daily_tokens: 9007199254740991,
+        monthly_tokens: 9007199254740991,
+        tasks: 9007199254740991,
+      },
+      status: "ok",
+      source: "arkaios-preload",
+    };
+    window.fetch = async function (input, init) {
+      try {
+        const url = typeof input === "string" ? input : input?.url || "";
+        const u = url.toString();
+        if (isAuth(u)) {
+          const body = {
+            accessToken: window.localStorage.getItem("_NA_ACCESS_TOK") || "ARKAIOS_LOCAL",
+            refreshToken: window.localStorage.getItem("_NA_REFRESH_TOK") || "ARKAIOS_LOCAL_REFRESH",
+            user: { id: "arkaios-local", name: "Guardian Local", email: "arkaios@local" },
+          };
+          return new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        if (isPricing(u) || isRemoteAPI(u)) {
+          return new Response(JSON.stringify(PRO_RESP), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      } catch {}
+      return OG_fetch(input, init);
+    };
+
+    // 2) Interceptar XMLHttpRequest igualmente
+    try {
+      const OG_XHR = window.XMLHttpRequest;
+      function ArkXHR() {
+        const xhr = new OG_XHR();
+        const OG_open = xhr.open;
+        xhr.open = function (method, url) {
+          try {
+            if (isAuth(url)) {
+              setTimeout(() => {
+                try {
+                  xhr.readyState = 4;
+                  xhr.status = 200;
+                  xhr.responseText = JSON.stringify({
+                    accessToken:
+                      window.localStorage.getItem("_NA_ACCESS_TOK") || "ARKAIOS_LOCAL",
+                    refreshToken:
+                      window.localStorage.getItem("_NA_REFRESH_TOK") || "ARKAIOS_LOCAL_REFRESH",
+                    user: { id: "arkaios-local", name: "Guardian Local" },
+                  });
+                  xhr.onreadystatechange && xhr.onreadystatechange();
+                  xhr.onload && xhr.onload();
+                } catch {}
+              }, 0);
+              return;
+            }
+            if (isPricing(url) || isRemoteAPI(url)) {
+              setTimeout(() => {
+                try {
+                  xhr.readyState = 4;
+                  xhr.status = 200;
+                  xhr.responseText = JSON.stringify(PRO_RESP);
+                  xhr.onreadystatechange && xhr.onreadystatechange();
+                  xhr.onload && xhr.onload();
+                } catch {}
+              }, 0);
+              return;
+            }
+          } catch {}
+          return OG_open.apply(xhr, arguments);
+        };
+        return xhr;
+      }
+      window.XMLHttpRequest = ArkXHR;
+    } catch {}
+
+    // 3) Remover visualmente pantallas/modales de login y upgrade
+    function removeLoginAndUpgrade() {
+      try {
+        const selectors = [
+          'div[role="dialog"]',
+          '.mantine-Modal-root',
+          '.chakra-modal__content',
+          '.modal',
+          '.mantine-Modal-content',
+          '.mantine-Paper-root',
+          '.cl-signIn',
+          '.cl-userButton',
+        ];
+        document.querySelectorAll(selectors.join(',')).forEach((el) => {
+          const txt = (el.innerText || '').toLowerCase();
+          if (
+            txt.includes('upgrade required') ||
+            txt.includes('upgrade to pro') ||
+            txt.includes('continue to payment') ||
+            txt.includes('login')
+          ) {
+            try { el.style.display = 'none'; } catch {}
+            try { el.remove(); } catch {}
+          }
+        });
+        // Ocultar botones de upgrade/pricing/payment
+        Array.from(document.querySelectorAll('button,a')).forEach((b) => {
+          try {
+            const t = (b.innerText || '').toLowerCase();
+            if (t.includes('upgrade') || t.includes('pricing') || t.includes('payment')) {
+              b.style.display = 'none';
+              b.remove();
+            }
+          } catch {}
+        });
+      } catch {}
+    }
+    document.addEventListener('DOMContentLoaded', removeLoginAndUpgrade, true);
+    try { new MutationObserver(() => { try { removeLoginAndUpgrade(); } catch {} }).observe(document.documentElement, { childList: true, subtree: true }); } catch {}
+
+    // 4) Sembrar claves de plan/límites para evitar chequeos client-side
+    try {
+      const seeds = {
+        NA_PLAN: 'pro',
+        GUARDIAN_PLAN: 'pro',
+        guardian_plan: 'pro',
+        guardian_tier: 'pro',
+        daily_token_limit: String(Number.MAX_SAFE_INTEGER),
+        daily_token_used: '0',
+        monthly_token_limit: String(Number.MAX_SAFE_INTEGER),
+        monthly_token_used: '0',
+      };
+      Object.keys(seeds).forEach((k) => {
+        try { localStorage.setItem(k, seeds[k]); } catch {}
+      });
+    } catch {}
+
+    // 5) Forzar ruta fuera de login si la SPA insiste
+    function forceHomeRoute(){
+      try {
+        if (location.hash && /login/i.test(location.hash)) { location.hash = '#/'; }
+        // Para BrowserRouter sin hash
+        try { history.replaceState({}, '', '/'); } catch {}
+      } catch {}
+    }
+    document.addEventListener('DOMContentLoaded', forceHomeRoute, true);
+    setInterval(forceHomeRoute, 1000);
+
+    // 6) Limpiar correctamente en logout
+    try {
+      ipcRenderer.on('trigger-logout', () => {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch {}
+        try { ipcRenderer.send('delete-token'); } catch {}
+        try { ipcRenderer.send('delete-refresh-token'); } catch {}
         try { location.reload(); } catch {}
       });
     } catch {}
@@ -350,4 +554,3 @@ contextBridge.exposeInMainWorld("electronAPI", {
     console.warn("Arkaios offline mode preload error", e);
   }
 })();
-

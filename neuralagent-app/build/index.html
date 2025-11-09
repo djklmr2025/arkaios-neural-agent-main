@@ -32,14 +32,15 @@
       }
       return originalFetch(url, options);
     };
-    // Forzar navegación al Home si la ruta inicial es login
+    // Forzar navegación al Home si la ruta inicial es login (hash y path)
     document.addEventListener('DOMContentLoaded', function(){
       try { if (location.hash && /login/i.test(location.hash)) { location.hash = '#/'; } } catch{}
-      // Suprimir modales de Upgrade Required si aparecen
+      try { history.replaceState({}, '', '/'); } catch{}
+      // Suprimir modales de Upgrade Required y contenedores de Login si aparecen
       function suppressUpgrade(){
         try {
           var modal = Array.from(document.querySelectorAll('[role="dialog"], .modal, div, section'))
-            .find(function(n){ return /Upgrade Required|Upgrade to Pro/i.test(n.textContent||''); });
+            .find(function(n){ return /Upgrade Required|Upgrade to Pro|Login to Guardian|Login to NeuralAgent/i.test(n.textContent||''); });
           if (modal){
             modal.style.display = 'none';
             var backdrop = document.querySelector('.modal-backdrop');
@@ -50,6 +51,33 @@
       }
       suppressUpgrade();
       try { new MutationObserver(function(){ suppressUpgrade(); }).observe(document.documentElement,{childList:true,subtree:true}); } catch{}
+      // Si el usuario intenta enviar el formulario de login, interceptamos y aceptamos localmente
+      try {
+        document.addEventListener('submit', function(e){
+          try {
+            var form = e.target;
+            var looksLogin = /email|password/i.test((form && form.innerText)||'') || form.querySelector('input[type="email"], input[type="password"]');
+            if (looksLogin){
+              e.preventDefault(); e.stopPropagation();
+              localStorage.setItem('_NA_ACCESS_TOK', 'ARKAIOS_LOCAL');
+              localStorage.setItem('_NA_REFRESH_TOK', 'ARKAIOS_LOCAL_REFRESH');
+              try { location.hash = '#/'; } catch{}
+            }
+          } catch(_e){}
+        }, true);
+        document.addEventListener('click', function(e){
+          try {
+            var t = e.target;
+            var txt = (t && (t.innerText||'').toLowerCase()) || '';
+            if (txt.includes('login')){
+              e.preventDefault(); e.stopPropagation();
+              localStorage.setItem('_NA_ACCESS_TOK', 'ARKAIOS_LOCAL');
+              localStorage.setItem('_NA_REFRESH_TOK', 'ARKAIOS_LOCAL_REFRESH');
+              try { location.hash = '#/'; } catch{}
+            }
+          } catch(_e){}
+        }, true);
+      } catch{}
     }, true);
   } catch (e) {}
 })();
