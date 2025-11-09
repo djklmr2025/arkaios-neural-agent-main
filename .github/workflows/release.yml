@@ -20,12 +20,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build & Publish (GitHub Releases)
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "Building and publishing via electron-builder"
+          npm run release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: arkaios-neural-agent-win
           path: dist/**
-
