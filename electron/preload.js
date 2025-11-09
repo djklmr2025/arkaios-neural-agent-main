@@ -1,4 +1,4 @@
-﻿const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
   setToken: (token) => ipcRenderer.send("set-token", token),
@@ -158,7 +158,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
       for (const node of nodes){
         if (!node || !node.nodeValue) continue;
         let t = node.nodeValue;
+        // Rebrand visible strings
         t = t.replace(/\bInquiry\b/g, 'ARKAIOS');
+        t = t.replace(/\bNeuralAgent\b/g, 'ARKAIOS NEURAL AGENT');
         t = t.replace(/\bUsuario\b/gi, 'Guardian');
         t = t.replace(/\bUser\b/gi, 'Guardian');
         t = t.replace(/\bSaul Gonzalez\b/gi, 'Guardian');

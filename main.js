@@ -2,7 +2,7 @@ import { exec, execSync, spawn } from 'child_process';
 import { app, BrowserWindow, ipcMain, Menu, nativeImage, screen, shell } from 'electron';
 import isDev from 'electron-is-dev';
 import Store from 'electron-store';
-import electronUpdater from 'electron-updater';
+import { autoUpdater } from 'electron-updater';
 import express from 'express';
 import fs from 'fs';
 import http from 'http';
@@ -15,7 +15,6 @@ import constants from './electron/utils/constants.js';
 import MacOSPermissions from './electron/utils/macos-permissions.js';
 import { generatePKCE } from './electron/utils/oauth.js';
 import { isBackgroundModeReady, setupBackgroundMode } from './electron/utils/wslSetup.js';
-} catch (e) { console.warn('[UserData setPath failed]', e?.message || e); }
 
 // Guardar contra corrupción del archivo de configuración de electron-store.
 // Si JSON.parse falla dentro de Conf/electron-store, interceptamos, respaldamos y regeneramos un config.json mínimo.
@@ -98,10 +97,8 @@ function ensureDeviceId() {
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
-autoUpdater.setFeedURL({
-  provider: 'generic',
-  url: 'https://api.getneuralagent.com/apps/neuralagent_desktop/updates/'
-});
+// Arkaios: rely on electron-builder publish config (GitHub provider); do not override feed URL.
+// When building with publish.provider='github', electron-updater will auto-detect releases.
 
 function setupAutoUpdater(window) {
   autoUpdater.on('checking-for-update', () => {
