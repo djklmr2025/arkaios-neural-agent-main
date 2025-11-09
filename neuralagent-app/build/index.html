@@ -114,4 +114,50 @@
   new MutationObserver(function(){ try { swapLogo(); } catch(e){} }).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
+<style>
+/* ARKAIOS quick theme overrides (non-invasive) */
+:root{
+  --arkaios-bg:#f7f8fb;
+  --arkaios-sidebar:#0b2a4a;
+  --arkaios-primary:#184a8c;
+  --arkaios-primary-contrast:#ffffff;
+  --arkaios-radius:12px;
+}
+body{ background: var(--arkaios-bg) !important; font-family: 'Poppins', 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+/* Buttons and primary actions */
+button, [role="button"], .btn, .Button, .MuiButton-root{
+  border-radius: var(--arkaios-radius) !important;
+  background: var(--arkaios-primary) !important;
+  color: var(--arkaios-primary-contrast) !important;
+}
+/* Pills / inputs */
+input, textarea, select, .Input, .MuiInputBase-root{
+  border-radius: var(--arkaios-radius) !important;
+}
+/* Left sidebar tone */
+aside, .Sidebar, nav[aria-label*="sidebar" i]{
+  background: var(--arkaios-sidebar) !important;
+}
+</style>
+<script>
+// ARKAIOS text localization / rebrand (non-destructive)
+(function(){
+  var replacements=[
+    [/\bNeuralAgent\b/g,'ARKAIOS NEURAL AGENT'],
+    [/\bStart a New Task\b/gi,'Inicia una Nueva Tarea'],
+    [/\bNew Task\b/gi,'Nueva Tarea'],
+    [/\bWhat do you want NeuralAgent to do\?\b/gi,'¿Qué quieres que ARKAIOS haga?'],
+    [/\bCheck If AI is Alive\b/gi,'Verificar si la IA está activa'],
+    [/\bLogin to NeuralAgent\b/gi,'Acceder a ARKAIOS'],
+  ];
+  function apply(){
+    try{
+      var w=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      var n; while(n=w.nextNode()){ var t=n.nodeValue; for(var i=0;i<replacements.length;i++){ t=t.replace(replacements[i][0],replacements[i][1]); } n.nodeValue=t; }
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',apply,true);
+  new MutationObserver(function(){ try{apply();}catch(e){} }).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+})();
+</script>
 </body></html>
