@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="./favicon.ico"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="NeuralAgent Desktop Application"/><title>NeuralAgent</title>
+<script>
+// Arkaios local bootstrap: establecer tokens y evitar el login antes de cargar el bundle
+(function(){
+  try {
+    const ACCESS_KEY = '_NA_ACCESS_TOK';
+    const REFRESH_KEY = '_NA_REFRESH_TOK';
+    const name = 'Guardian del Fuejo';
+    const email = 'arkaios@arkaios.god';
+    function b64url(obj){
+      return btoa(JSON.stringify(obj)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    }
+    const tok = b64url({alg:'HS256',typ:'JWT'}) + '.' + b64url({sub:'arkaios-local',name,email,iat:Math.floor(Date.now()/1000),exp:Math.floor(Date.now()/1000)+315576000}) + '.ARKAIOS';
+    try { localStorage.setItem(ACCESS_KEY, tok); localStorage.setItem(REFRESH_KEY, 'ARKAIOS_LOCAL_REFRESH'); } catch{}
+    // Interceptar fetch para rutas de auth y perfil y devolver éxito local
+    const originalFetch = window.fetch;
+    window.fetch = async (url, options={}) => {
+      const u = (typeof url==='string')?url:(url?.toString?.()||'');
+      if (/login|\/me|profile|users\/(me|profile)/i.test(u)){
+        const body = (/login/i.test(u))
+          ? JSON.stringify({ accessToken: tok, refreshToken: 'ARKAIOS_LOCAL_REFRESH', user: { id: 'arkaios-local', name, email } })
+          : JSON.stringify({ id:'arkaios-local', name, email, plan:'local' });
+        try { localStorage.setItem(ACCESS_KEY, tok); localStorage.setItem(REFRESH_KEY, 'ARKAIOS_LOCAL_REFRESH'); } catch{}
+        try { if (location.hash.includes('login')) { location.hash = '#/'; } } catch{}
+        return new Response(body,{status:200,headers:{'Content-Type':'application/json'}});
+      }
+      return originalFetch(url, options);
+    };
+    // Ocultar visualmente el contenedor de Login si aparece
+    const mo = new MutationObserver(()=>{
+      try {
+        const title = Array.from(document.querySelectorAll('h1,h2,h3,span,p')).find(n=>/Login to NeuralAgent/i.test(n.textContent||''));
+        if (title){ const root = title.closest('div'); if (root) root.style.display = 'none'; }
+      } catch{}
+    });
+    try { mo.observe(document.documentElement,{childList:true,subtree:true}); } catch{}
+  } catch (e) {}
+})();
+</script>
+<script defer="defer" src="./static/js/main.1772bb47.js"></script><link href="./static/css/main.42fe66ce.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+<script>
+// Arkaios front-index instrumentation: enviar eventos al monitor (puertos 3456-3460 y puerto actual)
+(function(){
+  try {
+    var ports = [3456,3457,3458,3459,3460];
+    var sessionId = (typeof crypto!=='undefined' && crypto.randomUUID) ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+    function send(bodyStr){
+      // Intentar sendBeacon y fetch en múltiples puertos
+      for (var i=0;i<ports.length;i++){
+        var p = ports[i];
+        try { if (navigator.sendBeacon) navigator.sendBeacon('http://localhost:'+p+'/ingest', bodyStr); } catch(e){}
+        try { fetch('http://localhost:'+p+'/ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:bodyStr}); } catch(e){}
+      }
+      if (location && location.port){
+        try { fetch('http://localhost:'+location.port+'/ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:bodyStr}); } catch(e){}
+      }
+    }
+    function emit(event, extra){
+      var payload = Object.assign({ event:event, ts:(new Date()).toISOString(), source:'front_index', sessionId:sessionId }, extra||{});
+      try { send(JSON.stringify(payload)); } catch(e){}
+    }
+    document.addEventListener('DOMContentLoaded', function(){ try { emit('dom_ready', { title: document.title }); } catch(e){} }, true);
+    window.addEventListener('load', function(){ try { emit('page_loaded', { title: document.title }); } catch(e){} }, true);
+    try { setInterval(function(){ emit('heartbeat',{}); }, 10000); } catch(e){}
+    document.addEventListener('click', function(e){
+      try {
+        var t = e && e.target ? e.target : {};
+        emit('ui_click',{ tag:t.tagName||null, id:t.id||null, class: t.className||null, text: ((t.innerText||'').slice? t.innerText.slice(0,64) : '') });
+      } catch(_e){}
+    }, true);
+    document.addEventListener('input', function(e){
+      try {
+        var t = e && e.target ? e.target : {};
+        var val = (typeof t.value==='string') ? t.value.slice(0,64) : null;
+        emit('ui_input',{ tag:t.tagName||null, id:t.id||null, class: t.className||null, value: val });
+      } catch(_e){}
+    }, true);
+    document.addEventListener('paste', function(e){
+      try {
+        var txt = '';
+        try { if (e && e.clipboardData && e.clipboardData.getData) { txt = e.clipboardData.getData('text') || ''; } } catch(__e){}
+        emit('paste',{ text: (txt||'').slice(0,64) });
+      } catch(_e){}
+    }, true);
+  } catch (e) {}
+})();
+</script>
+</body></html>

@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/css/main.42fe66ce.css",
+    "main.js": "./static/js/main.1772bb47.js",
+    "static/media/neuralagent_logo.png": "./static/media/neuralagent_logo.4345c13d7cdec8c3455c.png",
+    "static/media/neuralagent_logo_white.png": "./static/media/neuralagent_logo_white.9cdb819d49107dfa3305.png",
+    "static/media/neuralagent_logo_ic_only.png": "./static/media/neuralagent_logo_ic_only.1740de756ba7ccc38665.png",
+    "static/media/neuralagent_logo_ic_only_white.png": "./static/media/neuralagent_logo_ic_only_white.fc0d0bad80a7e40c75e2.png",
+    "index.html": "./index.html",
+    "main.42fe66ce.css.map": "./static/css/main.42fe66ce.css.map",
+    "main.1772bb47.js.map": "./static/js/main.1772bb47.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42fe66ce.css",
+    "static/js/main.1772bb47.js"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "arkaios-neural-agent",
+  "version": "1.0.0",
+  "description": "ARKAIOS NEURAL AGENT – Electron desktop app (ESM) with preload/monitor hotfixes.",
+  "license": "MIT",
+  "author": "ARKAIOS",
+  "type": "module",
+  "main": "main.js",
+  "optionalDependencies": {
+    "dmg-license": "^1.0.11"
+  },
+  "dependencies": {
+    "electron-is-dev": "^3.0.1",
+    "electron-store": "^10.0.1",
+    "electron-updater": "^6.6.2",
+    "express": "^5.1.0",
+    "sudo-prompt": "^9.2.1",
+    "tree-kill": "^1.2.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "release": "electron-builder --publish always"
+  },
+  "build": {
+    "appId": "ai.arkaios.neuralagent",
+    "productName": "ARKAIOS NEURAL AGENT",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**",
+      "!node_modules/**/.cache/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "djklmr2025",
+        "repo": "arkaios-neural-agent"
+      }
+    ]
+  }
+}

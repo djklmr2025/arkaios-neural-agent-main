@@ -1,0 +1,16 @@
+node_modules/
+dist/
+out/
+release/
+*.log
+*.asar
+*.rar
+*.zip
+*.7z
+resources/
+.DS_Store
+Thumbs.db
+.env
+/.idea/
+/.vscode/
+
