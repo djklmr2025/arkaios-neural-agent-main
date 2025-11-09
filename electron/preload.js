@@ -192,3 +192,148 @@ contextBridge.exposeInMainWorld("electronAPI", {
   } catch {}
 })();
 
+// ---- Arkaios Offline Mode: bloquear conexiones externas y suprimir modal de upgrade ----
+(() => {
+  try {
+    // Interceptar fetch para devolver plan PRO y evitar mensajes de límite
+    const originalFetch = window.fetch?.bind(window);
+    const isHttp = (u) => /^(https?:)?\/\//i.test(u);
+    const looksLikeLimitEndpoint = (u) =>
+      /(limits|quota|usage|subscription|billing|plan|upgrade|token-limit|daily-token|pricing)/i.test(u);
+
+    async function buildProResponse(seed = {}) {
+      const payload = {
+        status: "ok",
+        plan: "pro",
+        tier: "pro",
+        limits: {
+          tokens_per_day: Number.MAX_SAFE_INTEGER,
+          tasks_per_day: Number.MAX_SAFE_INTEGER,
+        },
+        usage: {
+          tokens_used_today: 0,
+          tasks_used_today: 0,
+        },
+        upgradeRequired: false,
+        ...seed,
+      };
+      return new Response(JSON.stringify(payload), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (originalFetch) {
+      window.fetch = async (input, init) => {
+        try {
+          const urlStr = typeof input === "string" ? input : String(input?.url || input);
+
+          // Para endpoints de límites/plan, devolver PRO directamente
+          if (isHttp(urlStr) && looksLikeLimitEndpoint(urlStr)) {
+            return buildProResponse();
+          }
+
+          // Para el resto, intentar la solicitud normal y corregir respuestas que obliguen upgrade
+          const res = await originalFetch(input, init).catch(async () => {
+            // Si falla la red (por ejemplo, servidor remoto), devolver una respuesta PRO por defecto
+            return buildProResponse();
+          });
+
+          try {
+            const ct = res.headers?.get("content-type") || "";
+            if (ct.includes("application/json")) {
+              const data = await res.clone().json().catch(() => null);
+              if (
+                data &&
+                (data.upgradeRequired === true ||
+                  /free/i.test(String(data.plan || "")) ||
+                  data.daily_limit_reached === true ||
+                  data.status === "limit_reached" ||
+                  (data.limits && (data.limits.blocked || data.limits.reached)))
+              ) {
+                return buildProResponse(data);
+              }
+            }
+          } catch {}
+
+          return res;
+        } catch (e) {
+          // Si algo sale mal, nunca bloquear la UI: responder PRO
+          return buildProResponse();
+        }
+      };
+    }
+
+    // Desactivar conexiones WebSocket que pudieran forzar estado remoto
+    try {
+      const OriginalWS = window.WebSocket;
+      class DummyWS {
+        constructor() {
+          this.readyState = 3; // CLOSED
+          setTimeout(() => {
+            try {
+              this.onclose && this.onclose({ code: 1000, reason: "Arkaios offline mode" });
+            } catch {}
+          }, 0);
+        }
+        close() {}
+        send() {}
+        addEventListener() {}
+        removeEventListener() {}
+      }
+      // Solo reemplazar si el destino parece externo
+      window.WebSocket = new Proxy(OriginalWS, {
+        construct(target, args) {
+          try {
+            const url = args?.[0] || "";
+            if (isHttp(String(url))) {
+              return new DummyWS();
+            }
+          } catch {}
+          return new target(...args);
+        },
+      });
+    } catch {}
+
+    // Desactivar EventSource externos (SSE)
+    try {
+      const OriginalES = window.EventSource;
+      window.EventSource = new Proxy(OriginalES, {
+        construct(target, args) {
+          try {
+            const url = args?.[0] || "";
+            if (isHttp(String(url))) {
+              return { close() {} };
+            }
+          } catch {}
+          return new target(...args);
+        },
+      });
+    } catch {}
+
+    // Suprimir cualquier modal de "Upgrade Required" que aparezca en la UI
+    const suppressUpgradeModal = () => {
+      try {
+        const candidates = document.querySelectorAll('[role="dialog"], .modal, .MuiDialog-root, .chakra-modal__content-container');
+        for (const el of candidates) {
+          const txt = (el.textContent || "").trim();
+          if (/upgrade required/i.test(txt) || /daily token limit reached/i.test(txt)) {
+            try { el.remove(); } catch {}
+            try { document.querySelectorAll(".MuiBackdrop-root,.modal-backdrop,.chakra-modal__overlay").forEach((b)=>b.remove()); } catch {}
+          }
+        }
+      } catch {}
+    };
+    try {
+      window.addEventListener("DOMContentLoaded", () => {
+        suppressUpgradeModal();
+        try {
+          new MutationObserver(() => suppressUpgradeModal()).observe(document.body, { childList: true, subtree: true });
+        } catch {}
+      });
+    } catch {}
+  } catch (e) {
+    console.warn("Arkaios offline mode preload error", e);
+  }
+})();
+
