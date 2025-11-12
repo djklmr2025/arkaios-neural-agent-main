@@ -5,11 +5,7 @@
 > Productividad real. No solo conversación. **Completamente gratis, sin costos por tokens o acciones.**
 
 ---
-
-[![Star ARKAIOS Agent](https://img.shields.io/github/stars/withneural/neuralagent?style=social)](https://github.com/withneural/neuralagent/stargazers)
-
 > ⭐️ ¡Si ARKAIOS Agent te inspira o ayuda, dale una estrella!
-
 ---
 
 En esta demostración, ARKAIOS Agent recibió el siguiente comando:
@@ -19,13 +15,6 @@ En esta demostración, ARKAIOS Agent recibió el siguiente comando:
 ¡ARKAIOS se encargó del resto!
 
 ![Demo](docs/images/demo.gif)
-
----
-
-## 🌎 Sitio Web y Comunidad
-
-- 🌐 **Sitio Web**: [https://www.getneuralagent.com](https://www.getneuralagent.com)
-- 💬 **Discord**: [Únete al Discord de ARKAIOS Agent](https://discord.gg/eGyW3kPcUs)
 
 ---
 
