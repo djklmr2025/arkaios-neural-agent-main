@@ -1,4 +1,6 @@
-[![GHBanner](https://github.com/djklmr2025/ARK-AI-OS/blob/main/images/gen_aethyr-core.arkaios.001.imgsig.png?raw=true)]()
+<a href="https://github.com/djklmr2025/arkaios-neural-agent-main">
+  <img src="https://github.com/djklmr2025/ARK-AI-OS/blob/main/images/gen_aethyr-core.arkaios.001.imgsig.png?raw=true" alt="GHBanner" width="300" />
+</a>
 
 **ARKAIOS Agent** es tu asistente personal de IA que realmente *hace las cosas*. Vive en tu escritorio, escribe, hace clic, navega por el navegador, completa formularios, envía correos electrónicos y realiza tareas automáticamente usando **ARKAIOS**, tu IA maestra de última generación, todo impulsado por una arquitectura rápida, extensible y abierta. ARKAIOS Agent usa tu computadora tanto en primer plano como en segundo plano.
 
