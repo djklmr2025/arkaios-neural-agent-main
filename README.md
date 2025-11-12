@@ -1,5 +1,5 @@
 
-[![NeuralAgent](docs/images/neuralagent_github_cover.jpg)](https://www.getneuralagent.com)
+[![Website Visit](https://img.shields.io/badge/Website_Visit-4c1?style=for-the-badge)](https://arkaios-neural-agent-landing.vercel.app/)
 
 **NeuralAgent** is your AI personal assistant that actually *gets things done*. It lives on your desktop, types, clicks, navigates the browser, fills out forms, sends emails, and performs tasks automatically using modern large language models all powered by a fast, extensible, and open architecture. NeuralAgent uses your computer both in the foreground and the background.
 
@@ -25,8 +25,8 @@ It took care of the rest!
 
 ## 🌐 Website & Community
 
-- 🌍 **Website**: [https://www.getneuralagent.com](https://www.getneuralagent.com)
-- 💬 **Discord**: [Join NeuralAgent Discord](https://discord.gg/eGyW3kPcUs)
+- 🌍 **Website**: [https://arkaios-neural-agent.com](https://arkaios-neural-agent-landing-arkaios-projects.vercel.app/)
+- 💬 **Discord**: [arkaios-neural-agent TAPNI](https://tapni.com/arkaios)
 
 ---
 
