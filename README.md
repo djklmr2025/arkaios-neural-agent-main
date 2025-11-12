@@ -1,4 +1,4 @@
-
+![Demostración del Agente Neural](https://github.com/djklmr2025/ARK-AI-OS/blob/main/images/snapsave-app_1064236365682814_hd.gif?raw=true)
 [![Website Visit](https://img.shields.io/badge/Website_Visit-4c1?style=for-the-badge)](https://arkaios-neural-agent-landing.vercel.app/)
 
 **NeuralAgent** is your AI personal assistant that actually *gets things done*. It lives on your desktop, types, clicks, navigates the browser, fills out forms, sends emails, and performs tasks automatically using modern large language models all powered by a fast, extensible, and open architecture. NeuralAgent uses your computer both in the foreground and the background.
