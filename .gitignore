@@ -28,3 +28,46 @@ arkaios-neural-agent/
 cosmos-gateway-module/
 resources/
 src/
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Vercel/Build tools
+.vercel/
+.vercelignore
+coverage/
+
+# Node/Electron
+node_modules/
+dist/
+build/
+.out/
+.next/
+out/
+*.log
+app.asar*
+*.asar
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Binaries
+*.exe
+*.dll
+*.bin
+
+# Archives
+*.zip
+*.rar
+
+# Misc
+*.cache/
+
