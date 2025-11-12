@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from 'react';
+import arkaios_logo_white from '../../assets/arkaios_logo_white.png';
+import { BtnIcon, Button } from '../../components/Elements/Button';
+import { MdAddCircleOutline } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoadingDialog } from '../../store';
+import constants from '../../utils/constants';
+import axios from '../../utils/axios';
+import {
+  SidebarContainer,
+  LogoWrapper,
+  Logo
+} from './SidebarElements';
+import {
+  List,
+  ListItemRR,
+  ListItemContent,
+  ListItemTitle
+} from '../../components/Elements/List';
+import { Text } from '../../components/Elements/Typography';
+
+
+export default function Sidebar() {
+
+  const [threads, setThreads] = useState([]);
+
+  const isLoading = useSelector(state => state.isLoading);
+  const accessToken = useSelector(state => state.accessToken);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const getThreads = () => {
+    dispatch(setLoadingDialog(true));
+    axios.get('/threads', {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+      }
+    }).then((response) => {
+      setThreads(response.data);
+      dispatch(setLoadingDialog(false));
+    }).catch((error) => {
+      dispatch(setLoadingDialog(false));
+      // Network errors (e.g., connection refused) won't have error.response
+      const status = error?.response?.status;
+      if (status === constants.status.UNAUTHORIZED) {
+        // En web preview evitamos reloads, redirigimos a login si aplica
+        try {
+          navigate('/login');
+        } catch {}
+      } else {
+        // Fallback: dejar la lista vacía y no romper la UI
+        setThreads([]);
+      }
+    });
+  }
+
+  useEffect(() => {
+    if (!constants.BYPASS_LOGIN) {
+      getThreads();
+    } else {
+      // En modo bypass, no consultar API y mantener lista vacía
+      setThreads([]);
+    }
+  }, []);
+
+  return (
+    <SidebarContainer>
+      <LogoWrapper to="/">
+        <Logo
+          src={arkaios_logo_white}
+          alt="GOD ARKAIOS AI"
+          height={40}
+        />
+      </LogoWrapper>
+      <Button padding='7px 15px' color={'var(--primary-color)'} borderRadius={6} fontSize='15px' dark
+         onClick={() => navigate('/')}>
+        <BtnIcon left color='#fff' iconSize='23px'>
+          <MdAddCircleOutline />
+        </BtnIcon>
+        New Task
+      </Button>
+      <Button padding='7px 15px' color={'#5c7cfa'} borderRadius={6} fontSize='15px' dark style={{marginTop:'8px'}}
+         onClick={() => navigate('/flowith')}>
+        Flowith Console
+      </Button>
+      <List padding='0px 10px' style={{marginTop: '10px', overflowY: 'auto'}}>
+        {
+          !isLoading && threads.length === 0 ? (
+            <Text style={{marginTop: '7px', padding: '8px'}}
+              fontSize='14px'
+              textAlign='center'
+              color={'rgba(255,255,255,0.7)'}>
+              You currently have no threads
+            </Text>
+          ) : (
+            <>
+              {threads.map((thread) => {
+                return (
+                  <ListItemRR key={'thread__' + thread.id} padding='10px' to={'/threads/' + thread.id} isDarkMode
+                    borderRadius='8px'
+                    style={{marginTop: '5px'}}>
+                    <ListItemContent>
+                      <ListItemTitle fontSize='14px' color='#fff' fontWeight='400'>
+                        {thread.title}
+                      </ListItemTitle>
+                    </ListItemContent>
+                  </ListItemRR>
+                )
+              })}
+            </>
+          )
+        }
+      </List>
+    </SidebarContainer>
+  );
+}
