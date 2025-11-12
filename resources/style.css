@@ -1,0 +1,34 @@
+/* Arkaios landing page minimal styles. Tailwind is loaded via CDN; this file adds a few custom touches. */
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #0A0A0A; /* dark-bg */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cta-button {
+  box-shadow: 0 8px 20px rgba(0, 184, 255, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  box-shadow: 0 14px 30px rgba(0, 184, 255, 0.35);
+}
+
+.feature-card,
+.use-case-card,
+.step-card {
+  backdrop-filter: blur(6px);
+}
+
+/* Smooth anchor scrolling (fallback when the browser ignores the HTML class) */
+html { scroll-behavior: smooth; }
+
