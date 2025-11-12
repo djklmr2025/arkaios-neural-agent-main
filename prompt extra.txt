@@ -1,0 +1,85 @@
+Style:
+ANIME
+Enhanced prompt (streaming):
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, solo, cute, pink hair, long hair, choppy bangs, long sidelocks, nebulae cosmic purple eyes, rimlit eyes, facing to the side, looking at viewer, downturned eyes, light smile, red annular solar eclipse halo, red choker, detailed purple serafuku, big red neckerchief, (glowing stars in hand:1.2), fingers, arched back, from side, from below, dutch angle, portrait, upper body, head tilt, colorful, rim light, backlit, (colorful light particles:1.2), cosmic sky, aurora, chaos, perfect night, fantasy background, dreamlike atmosphere, BREAK, detailed background, blurry foreground, bokeh, depth of field, volumetric lighting
+Negative prompt: multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 428649103, Seed: 3282307999, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Hires Adjust: ("shadow": [0, 0, 0, 0.8, 1.0], "middle": [0, 0, 0, 0.9, 0.9], "highlight": [0, 0, 0, 1.1, 1.0]), Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, blonde hair, long hair, floating hair, blue eyes, looking at viewer, parted lips, medium breasts, puffy sleeve white dress, leaning side against tree, dutch angle, portrait, upper body, close-up, foreshortening, vines, green, forest, flowers, white butterfly, BREAK, dramatic shadow, depth of field, vignetting, (dappled sunlight, sunburst, lens flare:1.2), rim light, backlit, volumetric lighting
+Negative prompt: multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 101724454, Seed: 1909963142, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, solo, red halo, long white hair, hair between eyes, floating hair, red eyes, turning head, looking at viewer, white eyelashes, raised inner eyebrows, smile, parted lips, black sundress, circle skirt, red angel wings, (floating, midair:1.2), arms behind back, arched back, from side, dutch angle, portrait, upper body, night, starry sky, red full moon, dark, omnious, BREAK, rim light, backlit, luminous particles, shimmering feathers, subtle lens flare, cinematic lighting, depth of field, bokeh, volumetric lighting, dreamy atmosphere
+Negative prompt: white dress, multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 718579124, Seed: 3466193688, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, solo, purple hair, medium bob, choppy blunt bangs, sidelocks, hair flaps, antenna hair, messy hair, raised inner eyebrows, (round eyebrows:1.2), blue eyes, round eyes, tareme, (head tilt:1.2), facing to the viewer, looking to the side, averting eyes, smile, open mouth, wavy mouth, embarassed, full-face blush, @ @, sweatdrop, medium breasts, (cleavage:1.2), round red-framed glasses, (loose collared open white shirt:1.3), sleeves past wrists, loose tilted red bowtie, collarbone, no bra, navel, (hands framing own cheeks:1.2), fingers, shrugging, dappled sunlight, back light, rim light, see-through silhouette, standing, upper body, dutch angle, window, living room, BREAK, delicate hair, volumetric lighting
+Negative prompt: bra, nipples, multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 1133623467, Seed: 1232929838, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, toga himiko, double bun, (raised inner eyebrows:1.2), glowing yellow eyes, crazy eyes, wide-eyed, very big eyes, sanpaku, (uneven eyes:1.2), bloodshot eyes, aegyo sal, crazy smile, shaded face, (blood covering face, face covered with blood, pink blood:1.4), teeth, fangs, (open mouth:1.2), (tongue out:1.3), (facing to the side, turning head:1.3), looking at viewer, (head tilt:1.2), school uniform sleeves past wrists, red neckerchief, sailor collar, blue pleated skirt, v arms, leaning forward, twisted torso, (arched back:1.2), (legs apart:1.2), from above, dutch angle, wide shot, fisheye, close-up, foreshortening, (pink:0.7) colorful background, backlighting, dark, rim light, BREAK, depth of field, volumetric lighting
+Negative prompt: (multiple tongues, long tongue:1.2), multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 3989362287, Seed: 768056919, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Hires Adjust: ("shadow": [0, -10, 10, 0.9, 1.1], "middle": [0, 0, 0, 1.0, 0.9], "highlight": [0, 0, -10, 0.9, 1.1]), Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, solo, cute, modeus\(helltaker\), helltaker, demon girl, black demon horns, short hair, white hair, messy hair, facing up, (head tilt:1.2), looking at viewer, (upturned eyes:1.1), v-shaped eyebrows, red eyes, very big eyes, ringed eyes, heart-shaped pupils AND sanpaku, wide-eyed, aegyo sal, hearts, upturned nose, heavy nose blush, open mouth, wavy mouth, angry, anger, glaring, furious, surprised, large breasts, undersized formal black jacket, tight black suit, skindentation red turtleneck ribbed sweater sleeves past wrists, long black demon tail, narrow waist, curvy, thicc, plump, hip dips, thick thighs, business skirt, red pantyhose, black knee boots, hands on own chest, breast suppress, contrapposto, legs apart, knees together feet apart, thigh gap, (foreshortening:1.2), hip tilt, twisted torso, leaning forward, arched back, upper body, portrait, from above, dutch angle, heart particles, [red background:helltaker background:11], BREAK, (fine detailed fabric emphasis:1.2), detailed background, depth of field, volumetric lighting, ray tracing
+Negative prompt: (multiple tails:1.2), spoken heart, from side, from behind, full body, multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 3477081907, Seed: 279379747, Size: 720x1448, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Hires Adjust: ("shadow": [10, 0, 0, 0.8, 1.1], "middle": [0, -10, 0, 0.9, 1.0], "highlight": [10, 0, 0, 1.0, 0.9]), Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, ia_\(vocaloid\), blue eyes, turning head, looking at viewer, upturned eyes, smile, open mouth, blush, small breasts, cleavage, off-shoulder (detouched sleeve:1.2) crop top black shirt over black tank top, midriff, pink skirt, floating clothes, contrapposto, legs apart, arched back, reaching, outstretched arms, fingers, from above, dutch angle, fisheye, floating hair, portrait, close-up, face focus, light particles, fine fabric emphasis, rim light, night, concert, idol, stage, neon light, spotlight, BREAK, depth of field, volumetric lighting
+Negative prompt: multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 376831015, Seed: 4174327409, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, black hair, short hair, sideswept bangs, hair over one eye, v-shaped eyebrows, (shaded face:1.2), wide-eyed, purple eyes, empty eyes, crazy eyes, eye trail, facing to the side, looking at viewer, smug, (evil grin:1.2), crazy smile, teeth, large breasts, skindentation detailed highcut (purple obsidian impossible bodysuit:1.2), hip dips, glowing purple cape, armored detailed purple gauntlets, head tilt, fighting stance, arched back, contrapposto, legs apart, clenched hands, fingers, close-up, (portrait, upper body:1.2), dutch angle, from below, foreshortening, (motion lines, attack trail:1.3), overgrown stone temple, purple night sky with moon, BREAK, fine fabric emphasis, depth of field, volumetric lighting
+Negative prompt: multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 721664149, Seed: 3962223039, Size: 768x1344, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+Style
+anime
+Enhanced prompt (streaming)
+masterpiece, best quality, amazing quality, 4k, very aesthetic, high resolution, ultra-detailed, absurdres, newest, scenery, 3d, rendered, 1girl, solo, gray hair, long hair, messy hair, flipped sidelocks, black eyes, empty eyes, (sanpaku:1.2), jitome, aegyo sal, bags under eyes, facing to the side, looking at viewer, parted lips, huge breasts, cleavage, skindentation strapless highcut latex impossible black leotard, sideboob, detached collar, black bowtie, wrist cuffs, fake latex black rabbit ears, (narrow waist:1.2), curvy, plump, (wide hips:1.4), (thick thighs:1.3), huge butt, huge ass, partially removed open black down jacket sleeves past fingers, shoulders, black pantyhose, black highheels, sitting on floor, knee up, crossed legs, leaning back against wall, arched back, hand on floor, hand on knee, head tilt, from below, from side, dutch angle, dark alley, night, darkness, (backlighting:1.3), BREAK, depth of field, volumetric lighting, dim lighting
+Negative prompt: multiple views, multiple angle, split view, grid view, two shot, outside border, picture frame, framed, border, letterboxed, pillarboxed, 2koma, modern, recent, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured, long body, lowres, bad anatomy, bad hands, missing fingers, extra fingers, extra digits, fewer digits, cropped, very displeasing, (worst quality, bad quality:1.2), sketch, jpeg artifacts, signature, watermark, username, (censored, bar_censor, mosaic_censor:1.2), simple background, conjoined, bad ai-generated
+        Steps: 20, Sampler: Euler a, CFG scale: 4.5, Global Seed: 2767792223, Seed: 2067423318, Size: 1488x696, Clip skip: 2, Model hash: 908dff671c, Model: Nova3DCGILV7, Hires steps: 40, Hires upscale: 1.5, Denoising strength: 0.4, Hires CFG Scale: 4
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+# SO/OS files
+Thumbs.db
+.DS_Store
+
+# Logs & temp
+*.log
+*.tmp
+*.bak
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Node/Python (por si se agregan scripts)
+node_modules/
+.venv/
+__pycache__/
+
+# Build/output
+dist/
+build/
+.vercel/
+
+# No subir repos externos ni mirrors (este repo solo contiene Arkaios)
+github.com-djklmr-2025=repositories/
+neuralagentAI/
+arkaios-neural-agent/
+cosmos-gateway-module/
+resources/
+src/
