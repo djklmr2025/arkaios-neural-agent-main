@@ -26,7 +26,7 @@ It took care of the rest!
 ## 🌐 Website & Community
 
 - 🌍 **Website**: [https://arkaios-neural-agent.com](https://arkaios-neural-agent-landing-arkaios-projects.vercel.app/)
-- 💬 **Discord**: [arkaios-neural-agent TAPNI](https://tapni.com/arkaios)
+- 💬 **TAPNI**: [arkaios-neural-agent TAPNI](https://tapni.com/arkaios)
 
 ---
 
