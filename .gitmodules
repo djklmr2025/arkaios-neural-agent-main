@@ -4,3 +4,6 @@
 [submodule "github.com-djklmr-2025=repositories/submodules/VEO-Free-Creator"]
 	path = github.com-djklmr-2025=repositories/submodules/VEO-Free-Creator
 	url = https://github.com/djklmr2025/VEO-Free-Creator
+[submodule "github.com-djklmr-2025=repositories/submodules/arkaios-core-api"]
+	path = github.com-djklmr-2025=repositories/submodules/arkaios-core-api
+	url = https://github.com/djklmr2025/arkaios-core-api
