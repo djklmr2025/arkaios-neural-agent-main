@@ -10,3 +10,6 @@
 [submodule "github.com-djklmr-2025=repositories/submodules/arkaios-service-proxy"]
 	path = github.com-djklmr-2025=repositories/submodules/arkaios-service-proxy
 	url = https://github.com/djklmr2025/arkaios-service-proxy
+[submodule "github.com-djklmr-2025=repositories/submodules/GEMINI-API-KEY"]
+	path = github.com-djklmr-2025=repositories/submodules/GEMINI-API-KEY
+	url = https://github.com/djklmr2025/GEMINI-API-KEY
