@@ -16,3 +16,6 @@
 [submodule "github.com-djklmr-2025=repositories/submodules/lobe-chat-arkaios"]
 	path = github.com-djklmr-2025=repositories/submodules/lobe-chat-arkaios
 	url = https://github.com/djklmr2025/lobe-chat-arkaios
+[submodule "github.com-djklmr-2025=repositories/submodules/IA-ARKAIOS"]
+	path = github.com-djklmr-2025=repositories/submodules/IA-ARKAIOS
+	url = https://github.com/djklmr2025/IA-ARKAIOS
