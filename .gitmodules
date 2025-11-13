@@ -7,3 +7,6 @@
 [submodule "github.com-djklmr-2025=repositories/submodules/arkaios-core-api"]
 	path = github.com-djklmr-2025=repositories/submodules/arkaios-core-api
 	url = https://github.com/djklmr2025/arkaios-core-api
+[submodule "github.com-djklmr-2025=repositories/submodules/arkaios-service-proxy"]
+	path = github.com-djklmr-2025=repositories/submodules/arkaios-service-proxy
+	url = https://github.com/djklmr2025/arkaios-service-proxy
