@@ -13,3 +13,6 @@
 [submodule "github.com-djklmr-2025=repositories/submodules/GEMINI-API-KEY"]
 	path = github.com-djklmr-2025=repositories/submodules/GEMINI-API-KEY
 	url = https://github.com/djklmr2025/GEMINI-API-KEY
+[submodule "github.com-djklmr-2025=repositories/submodules/lobe-chat-arkaios"]
+	path = github.com-djklmr-2025=repositories/submodules/lobe-chat-arkaios
+	url = https://github.com/djklmr2025/lobe-chat-arkaios
