@@ -1,73 +1,9 @@
-# SO/OS files
-Thumbs.db
-.DS_Store
+# Ignorar el directorio del entorno de desarrollo IDX
+.idx/
 
-# Logs & temp
-*.log
-*.tmp
-*.bak
-
-# Editor/IDE
-.vscode/
-.idea/
-
-# Node/Python (por si se agregan scripts)
-node_modules/
-.venv/
+# Ignorar los directorios de caché de Python
 __pycache__/
 
-# Build/output
-dist/
-build/
-.vercel/
-
-# No subir repos externos ni mirrors (este repo solo contiene Arkaios)
-github.com-djklmr-2025=repositories/
-neuralagentAI/
-arkaios-neural-agent/
-cosmos-gateway-module/
-resources/
-src/
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-
-# Vercel/Build tools
-.vercel/
-.vercelignore
-coverage/
-
-# Node/Electron
-node_modules/
-dist/
-build/
-.out/
-.next/
-out/
-*.log
-app.asar*
-*.asar
-
-# Python
-__pycache__/
+# Ignorar otros archivos comunes que no deben ser versionados
 *.pyc
-.venv/
-venv/
 .env
-
-# Binaries
-*.exe
-*.dll
-*.bin
-
-# Archives
-*.zip
-*.rar
-
-# Misc
-*.cache/
-
